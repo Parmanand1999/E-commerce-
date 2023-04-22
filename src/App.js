@@ -1,22 +1,17 @@
-
 import React from 'react';
 import './app.css';
-import Navbar from './Componant/Navbar';
-import Headersection from './Componant/Headersection';
-import Carousel from './Componant/Carousel';
-import Faishon from './Componant/Faishon';
-import FaishonChild from './Componant/FaishonChild';
+import { BrowserRouter } from 'react-router-dom';
+import AllRoutes from './routes/AllRoutes';
+
+
+
 
 function App() {
     return <>
-        <div className="bg-[url('./images/e-combanner.png')] bg-no-repeat bg-cover bg-center ">
+        <BrowserRouter>
+            <AllRoutes />
+        </BrowserRouter>
 
-            <Navbar />
-            <Headersection />
-            <Carousel/>
-        </div>
-        <FaishonChild/>
-        <Faishon />
     </>
 }
 
