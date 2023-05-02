@@ -1,23 +1,38 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { BiMenu } from "react-icons/bi";
 import { FaSearch } from "react-icons/fa";
 import { FaShoppingCart } from "react-icons/fa"
 import { RiContactsFill } from "react-icons/ri"
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router';
+
 function Headersection() {
+  const navigate = useNavigate()
+  const [cartItemsquantity, setCartItemsquantity] = useState(0)
+  const cartItems = useSelector(state => state.counterSlice.cartItems)
+console.log(cartItems.length,"2345678");
+
+  useEffect(() => {
+
+
+    setCartItemsquantity(cartItems.length)
+  }, [cartItems])
+
+
   return (
     <>
       <div className=' bg-none mx-w-[1300px] mx-auto  container flex flex-wrap p-5 flex-col md:flex-row items-center '>
-        
-          <div className=' text-6xl bg-none text-white '><BiMenu className='bg-none' /></div>
 
-          {/* Dropdown menu */}
-          <select id="countries" className="  h-9 pt-1 hidden  text-white md:block  p-2.5 w-[20%]  dark:placeholder-gray-400 rounded " style={{ background: "black" }}>
-            <option selected >All Category</option>
-            <option value="Hi" >Hindi</option>
-            <option value="CA">Canada</option>
-            <option value="FR">France</option>
-            <option value="DE">Germany</option>
-          </select>
+        <div className=' text-6xl bg-none text-white '><BiMenu className='bg-none' /></div>
+
+        {/* Dropdown menu */}
+        <select id="countries" className="  h-9 pt-1 hidden  text-white md:block  p-2.5 w-[20%]  dark:placeholder-gray-400 rounded " style={{ background: "black" }}>
+          <option selected >All Category</option>
+          <option value="Hi" >Hindi</option>
+          <option value="CA">Canada</option>
+          <option value="FR">France</option>
+          <option value="DE">Germany</option>
+        </select>
         {/* Searbar */}
         <div className="flex border  mx-3 w-[40%]  bg-none rounded-l-lg rounded-r-lg   ">
           <input
@@ -44,15 +59,16 @@ function Headersection() {
 
 
         {/* Cart */}
-        
-          <div className=' text-xl ml-3 bg-none '>
-            <FaShoppingCart className='bg-none text-white' />
-          </div><span className='bg-none  ml-2 text-white'>CART</span>
-          <div className=' text-xl ml-2 bg-none '>
-            <RiContactsFill className='bg-none text-white' />
-          </div><span className='bg-none  ml-2 text-white'>CART</span>
 
-        
+        <div className=' text-xl ml-3 bg-none '> {cartItemsquantity}<sub className='text-white'></sub>
+          <FaShoppingCart className='bg-none text-white mb-4' onClick={() => navigate("/Cartitem")} />
+
+        </div><span className='bg-none  ml-2 text-white'>CART</span>
+        <div className=' text-xl ml-2 bg-none '>
+          <RiContactsFill className='bg-none text-white' />
+        </div><span className='bg-none  ml-2 text-white'>CART</span>
+
+
       </div>
     </>
   )

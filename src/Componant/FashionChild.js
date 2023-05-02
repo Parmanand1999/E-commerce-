@@ -1,45 +1,85 @@
 import React, { useEffect, useState } from 'react'
-import { useLocation } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import axios from "axios";
+import { useDispatch } from 'react-redux';
+import {  addToCarthandler } from '../features/counterSlice';
 
 function FashionChild() {
-    const [data, setData] = useState({})
-    const location = useLocation();
-    const itemIndex = location.pathname.split("/")[2];
-    console.log(location.pathname.split("/")[2], ">>>>>>>>>>>>>>>.")
-    useEffect(() => {
-        fetch(`https://fakestoreapi.com/products/1`)
-            .then((response) => response.json())
-            .then((json) => setData(json));
-    }, [itemIndex])
+    const [data, setData] = useState([])
+    const navigate = useNavigate()
+    const { id } = useParams();
+    const dispatch = useDispatch()
+   
 
-    console.log(data, "....$$$$$$$$$$$$y7u83yu51t81347t  342");
+    useEffect(() => {
+        try {
+            axios.get(`https://fakestoreapi.com/products/${id}`).then((response) => {
+                setData(response.data);
+            });
+
+        } catch (error) {
+            console.log(error)
+        }
+
+
+    }, [id])
+
+
+    // const handleCartItems = (item) => {
+    //     const ids = cartitems?.map((i) => {
+    //         return i.id
+    //     })
+
+    //     if (cartitems.length && ids.includes(item.id)) {
+    //         dispatch(Increment(item.id))
+    //     } else {
+
+    //         dispatch(addToCarthandler({ ...data, quantity: 1 }))
+    //     }
+    // }
+    // const addToCarthandler = (id) => {
+
+    //     Navigate(`/Cartitem`)
+    //     const idArray = localStorage.getItem("idArray") ? JSON.parse(localStorage.getItem("idArray")) : [];
+    //     idArray.push(id);
+    //     localStorage.setItem('idArray', JSON.stringify(idArray));
+    //     // console.log(idArray, "sdfghjrfgthj")
+  
+
+    // }
     return (
         <>
             {
-                // data.map((item, id) =>
-                    <div className="flex flex-col rounded-lg bg-white ml-3 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700 md:max-w-xl md:flex-row">
+                <div className="flex flex-col max-w-[1300px]  h-[100%]  rounded-lg bg-white dark:bg-neutral-700  md:flex-row">
+                    <div className="rounded-t-lg md:rounded-nonem   md:rounded-l-lg">
                         <img
-                            className="h-96 w-full rounded-t-lg object-cover md:h-auto md:w-48 md:rounded-none md:rounded-l-lg"
+                            className='w-[40%] h-[60%]'
                             src={data?.image}
-                            alt=""
-                        />
-                        <div className="flex flex-col justify-start p-6">
-                            <h5 className="mb-2 text-xl font-medium text-neutral-800 dark:text-neutral-50">
-                                {data?.category}
-                            </h5>
-                            <p>{"title"}</p>
-                            <p className="mb-4 text-base text-neutral-600 dark:text-neutral-200">
-                                {data?.description}  
-                            </p>
-                            <p>{"rating"}</p>
-                            <p>{data?.price}</p> 
-                            <p className="text-xs text-neutral-500 dark:text-neutral-300">
-                                Last updated 3 mins ago
-                            </p>
-                        </div>
+                            alt="" />
+                        <button className='bg-yellow-500 hover:bg-blue-700 ml-3 text-white font-bold py-2 px-4 rounded' onClick={() =>
+                            // handleCartItems(data)
+                            dispatch(addToCarthandler({ ...data, quantity: 1 }))
+                        }
+                        > Add to Cart</button>
+                        <button className='bg-orange-600 hover:bg-blue-700 ml-3 text-white font-bold py-2 px-4 rounded'>Buy Now</button>
                     </div>
 
-                // )
+                    <div className="flex flex-col w-[60%] justify-start p-6">
+                        <h3 className="mb-2 text-2xl font-bold text-neutral-800 dark:text-neutral-50">
+                            {data?.category}
+                        </h3>
+                        <h4 className='font-bold'>{data?.title}</h4>
+                        <p className="mb-4 text-base text-neutral-600 dark:text-neutral-200">
+                            Details:{data?.description}
+                        </p>
+                        <p>Rating:{data?.rating?.rate}</p>
+                        <p>Price:{data?.price}</p>
+                        <p className="text-xs text-neutral-500 dark:text-neutral-300">
+                            Last updated 3 mins ago
+                        </p>
+                    </div>
+                    <button className='border-2 rounded-md border-black bg-orange-600 h-10  bottom-0 fixed inset-x-0' onClick={() => navigate('/')}>Continue Shoping</button>
+                </div>
             }
         </>
     )
