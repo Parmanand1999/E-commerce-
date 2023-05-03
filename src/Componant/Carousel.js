@@ -7,7 +7,7 @@ function Carousel() {
 
             <div
 
-                className="block max-w-full text-center p-10 text-whit ease-in-out   "
+                className="block max-w-full text-center mx-auto p-10 text-whit ease-in-out   "
             >
                 <h1 className="mb-2 text-5xl  font-bold tracking-tight text-white">
                     GET START
