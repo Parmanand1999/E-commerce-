@@ -29,7 +29,7 @@ function Fashion() {
                         <img src={item.image} className='w-[200px] h-[200px]' />
                         <div className='text-black absolute  bottom-10'>Price:{item.price} $</div>
                         <div className='text-black'><h6 className='text-center  absolute  bottom-13'>{item.title}</h6></div>
-                        <button className='bg-[#38bdf8] rounded p-2 px-4 absolute inset-x-0 bottom-0' onClick={() => Buyhandler(item.id)}>Buy Now</button>
+                        <button className='bg-[#38bdf8] rounded p-2 px-4 absolute inset-x-0 bottom-0' onClick={() => Buyhandler(item.id)}>About product</button>
                     </div>
 
 

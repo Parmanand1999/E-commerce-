@@ -1,7 +1,9 @@
 import React from 'react'
 import { AiOutlineLeft } from "react-icons/ai"
 import { BsChevronRight } from "react-icons/bs"
+import { useNavigate } from 'react-router'
 function Carousel() {
+   const navigate =useNavigate()
     return (
         <>
 
@@ -17,7 +19,7 @@ function Carousel() {
                 <h1 className="mb-2 mt-5 text-5xl font-bold tracking-tight text-white">
                     YOUR FAVRIOT SHOPING
                 </h1>
-                <button className='text-x text-white font-bold p-3 px-5 mt-5 border rounded-lg bg-black'>BUY NOW</button>
+                <button className='text-x text-white font-bold p-3 px-5 mt-5 border rounded-lg bg-black'onClick={()=>navigate('/Cartitem')}>BUY NOW</button>
             </div>
 
 
