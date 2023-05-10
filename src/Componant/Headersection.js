@@ -10,7 +10,7 @@ function Headersection() {
   const navigate = useNavigate()
   const [cartItemsquantity, setCartItemsquantity] = useState(0)
   const cartItems = useSelector(state => state.counterSlice.cartItems)
-console.log(cartItems.length,"2345678");
+// console.log(cartItems.length,"2345678");
 
   useEffect(() => {
 
